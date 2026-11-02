@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Day for You</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    .font-serif-display { font-family: 'Playfair Display', serif; }
+
+    .section-container {
+      min-height: 100vh;
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 1.25rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .section-container.visible {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .next-button {
+      margin-top: 2rem;
+      cursor: pointer;
+      padding: .65rem 1rem;
+      background: rgba(255,255,255,.1);
+      border-radius: 9999px;
+      transition: background .3s, transform .3s;
+    }
+    .next-button:hover { background: rgba(255,255,255,.2); transform: translateY(3px); }
+
+    #particles-js { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+    #kado-box { transition: transform .3s ease; }
+    #kado-box:hover { transform: scale(1.1); }
+    #isi-kado {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height .6s ease, opacity .5s ease, margin .5s ease;
+    }
+    #isi-kado.terbuka { max-height: 600px; opacity: 1; margin-top: 1.5rem; }
+
+
+    .sticker-image { display: block; object-fit: contain; }
+    .sticker-fallback {
+      width: 12rem; height: 12rem; margin: 0 auto 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 1rem; background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16); font-size: 5rem;
+    }
+    .sticker-fallback.bunga { width: min(100%, 20rem); height: 16rem; font-size: 7rem; }
+    .sticker-fallback.hadiah { width: 8rem; height: 8rem; font-size: 4rem; margin-bottom: 1rem; }
+
+    #music-toggle {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 20;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(30, 27, 60, .85);
+      color: white;
+      border-radius: 9999px;
+      padding: .7rem 1rem;
+      backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="particles-js"></div>
+
+  <!--
+    AUDIO ONLINE:
+    Ganti URL di bawah dengan direct link file MP3/OGG yang bisa diakses publik.
+    Contoh demo musik bebas uji: https://media1.vocaroo.com/mp3/1jAhcado6j7i
+    Jangan menempelkan tag <audio> di dalam JavaScript.
+  -->
+  <audio id="background-music" loop preload="auto">
+  <source src="https://github.com/nikiboyx/ucapan-ulang-tahun/raw/refs/heads/main/lagu-ultah.mp3" type="audio/mpeg">
+</audio>
+
+  <main id="main-content">
+    <section id="s1" class="section-container visible">
+      <h1 class="font-serif-display text-4xl md:text-5xl mb-4 text-white">A Special Day</h1>
+      <p class="text-base md:text-lg mb-8 max-w-sm">Sebelum kita mulai, tuliskan nama lengkapmu terlebih dahulu</p>
+      <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+        <input id="nama-input" type="text" autocomplete="off" placeholder="Tuliskan namamu"
+          class="w-full px-5 py-3 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-400 text-center text-white placeholder-gray-400">
+        <button id="btn-mulai" class="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-full font-bold transition-transform hover:scale-105">Mulai</button>
+      </div>
+      <p class="text-xs text-gray-400 mt-4">aloo sayangku</p>
+    </section>
+
+    <section id="s2" class="section-container">
+      <p class="text-base md:text-lg mb-4">Untuk <span class="nama-span font-bold text-purple-300"></span>,</p>
+      <img src="https://media.tenor.com/cWrVaANWYxEAAAAm/peach-goma-peach-and-goma.webp" alt="Stiker lucu" class="sticker-image w-48 h-48 mx-auto rounded-lg mb-6" loading="eager" decoding="async" referrerpolicy="no-referrer">
+      <h2 class="font-serif-display text-3xl md:text-4xl text-white max-w-2xl leading-tight">Hai, sayangku. Hari ini adalah hari spesial buat kamu. Selamat bertambah usia ya bocilku. Semoga panjang umur, selalu diberikan kesehatan, dan bahagia selalu. Semoga kita bisa terus bersama, melewati banyak hal, dan menciptakan lebih banyak kenangan indah berdua. ❤️</h2>
+      <button class="next-button" data-next="s3" aria-label="Lanjut ke halaman berikutnya">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+    </section>
+
+    <section id="s3" class="section-container">
+      <p class="text-base md:text-lg mb-4">Doaku untukmu,</p>
+      <img src="https://media.tenor.com/yYPx78UOFc0AAAAm/quby-cute.webp" alt="Stiker doa" class="sticker-image w-48 h-48 mx-auto rounded-lg mb-6" loading="eager" decoding="async" referrerpolicy="no-referrer">
+      <h2 class="font-serif-display text-3xl md:text-4xl text-white max-w-3xl leading-tight">semoga semua impianmu menjadi kenyataan, dan kamu selalu dikelilingi oleh kebahagiaan.</h2>
+      <button class="next-button" data-next="s4_bunga" aria-label="Lanjut ke halaman berikutnya">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+    </section>
+
+    <section id="s4_bunga" class="section-container">
+      <h2 class="font-serif-display text-3xl md:text-4xl text-white max-w-3xl leading-tight mb-8">Satu bunga untukmu, sebagai simbol dari semua kata yang tak terucap.</h2>
+      <img src="https://media.tenor.com/5hNFjHWQYKQAAAAm/bubu-dudu-sseeyall.webp" alt="Bunga" class="sticker-image w-full max-w-xs rounded-lg shadow-2xl object-cover h-64" loading="eager" decoding="async" referrerpolicy="no-referrer">
+      <button class="next-button" data-next="s5_kado" aria-label="Lanjut ke halaman berikutnya">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+    </section>
+
+    <section id="s5_kado" class="section-container">
+      <h2 class="font-serif-display text-3xl md:text-4xl text-white max-w-3xl leading-tight mb-8">Ada sedikit hadiah...<br>Coba buka!</h2>
+      <button id="kado-box" class="text-8xl cursor-pointer" aria-label="Buka hadiah">🎁</button>
+      <div id="isi-kado" class="w-full max-w-md bg-white/10 p-6 rounded-lg border border-purple-300/50">
+        <img src="https://media.tenor.com/pwFrMcxXke4AAAAm/presents-gift.webp" alt="Hadiah" class="sticker-image w-32 h-32 mx-auto mb-4" loading="eager" decoding="async" referrerpolicy="no-referrer">
+        <h3 class="text-2xl font-bold text-yellow-300">KUPON SPESIAL</h3>
+        <p class="mt-2 text-lg">Berlaku untuk: Satu traktiran es krim/seblak di tempat pilihanmu</p>
+      </div>
+      <button class="next-button" data-next="s6_selamat" aria-label="Lanjut ke halaman berikutnya">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+    </section>
+
+    <section id="s6_selamat" class="section-container">
+      <img src="https://media.tenor.com/EC7xiN7mrhEAAAAm/birthday-birthday-party.webp" alt="Stiker ulang tahun" class="sticker-image w-48 h-48 mx-auto rounded-lg mb-6" loading="eager" decoding="async" referrerpolicy="no-referrer">
+      <h1 class="font-serif-display text-4xl md:text-6xl text-white mb-6">Happy Birthday,<br class="md:hidden"><span class="nama-span text-purple-300"></span>!</h1>
+      <p class="text-base md:text-lg max-w-2xl mb-8">Terima kasih telah hadir di dunia ini. semangat terus ya sayangku!</p>
+      <div class="flex flex-col sm:flex-row gap-4 mt-4">
+        <a id="btn-wa" href="#" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-green-500 hover:bg-green-600 rounded-full font-bold transition-transform hover:scale-105 flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.447-4.433-9.886-9.888-9.886-5.448 0-9.886 4.434-9.889 9.886-.001 2.268.651 4.288 1.943 6.088l-1.533 5.595 5.72-1.511z"/></svg>
+          Balas di WhatsApp
+        </a>
+        <button id="btn-ulangi" class="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full font-bold transition-transform hover:scale-105">Ulangi Momen Ini</button>
+      </div>
+    </section>
+  </main>
+
+  <button id="music-toggle" type="button" aria-label="Putar atau jeda musik">♫ Putar musik</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Latar belakang partikel
+      if (window.particlesJS) {
+        particlesJS('particles-js', {
+          particles: {
+            number: { value: 60, density: { enable: true, value_area: 800 } },
+            color: { value: '#ffffff' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: { enable: false },
+            move: { enable: true, speed: 1, random: true, out_mode: 'out' }
+          },
+          interactivity: {
+            detect_on: 'canvas',
+            events: { onhover: { enable: false }, onclick: { enable: false } }
+          },
+          retina_detect: true
+        });
+      }
+
+      const sections = document.querySelectorAll('.section-container');
+      const nameInput = document.getElementById('nama-input');
+      const startButton = document.getElementById('btn-mulai');
+      const repeatButton = document.getElementById('btn-ulangi');
+      const nameSpans = document.querySelectorAll('.nama-span');
+      const nextButtons = document.querySelectorAll('.next-button');
+      const backgroundMusic = document.getElementById('background-music');
+      const musicToggle = document.getElementById('music-toggle');
+      const giftButton = document.getElementById('kado-box');
+      const giftContent = document.getElementById('isi-kado');
+      const waButton = document.getElementById('btn-wa');
+
+      // Penanganan semua stiker: tampilkan gambar Tenor jika berhasil,
+      // dan gunakan ilustrasi pengganti jika CDN gagal dimuat di perangkat tertentu.
+      const stickerFallbacks = ['💕', '💖', '🌷', '🎁', '🎂'];
+      document.querySelectorAll('img.sticker-image').forEach((img, index) => {
+        img.addEventListener('error', () => {
+          if (img.dataset.fallbackShown) return;
+          img.dataset.fallbackShown = 'true';
+          const fallback = document.createElement('div');
+          fallback.className = 'sticker-fallback';
+          if (index === 2) fallback.classList.add('bunga');
+          if (index === 3) fallback.classList.add('hadiah');
+          fallback.setAttribute('role', 'img');
+          fallback.setAttribute('aria-label', img.alt || 'Ilustrasi stiker');
+          fallback.textContent = stickerFallbacks[index] || '💖';
+          img.replaceWith(fallback);
+        }, { once: true });
+      });
+
+
+
+      function showSection(targetId) {
+        sections.forEach(section => {
+          const active = section.id === targetId;
+          section.classList.toggle('visible', active);
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      async function playMusic() {
+        try {
+          await backgroundMusic.play();
+          musicToggle.textContent = '♫ Jeda musik';
+        } catch (error) {
+          // Browser bisa menolak audio jika belum ada interaksi pengguna.
+          musicToggle.textContent = '♫ Putar musik';
+          console.warn('Musik belum dapat diputar:', error);
+        }
+      }
+
+      function pauseMusic() {
+        backgroundMusic.pause();
+        musicToggle.textContent = '♫ Putar musik';
+      }
+
+      startButton.addEventListener('click', async () => {
+        const nama = nameInput.value.trim();
+        if (!nama) {
+          alert('Tolong tulis namanya dulu ya :)');
+          nameInput.focus();
+          return;
+        }
+
+        nameSpans.forEach(span => { span.textContent = nama; });
+
+        // Ganti nomor berikut dengan nomor WhatsApp tujuan, format internasional tanpa +.
+        
+        const nomorWhatsapp = '6289692000340';
+        const pesanWhatsapp = `love you`;
+        waButton.href = `https://wa.me/${nomorWhatsapp}?text=${encodeURIComponent(pesanWhatsapp)}`;
+
+        showSection('s2');
+        await playMusic(); // Musik dimulai setelah klik pengguna agar sesuai aturan browser.
+      });
+
+      musicToggle.addEventListener('click', async () => {
+        if (backgroundMusic.paused) await playMusic();
+        else pauseMusic();
+      });
+
+      nextButtons.forEach(button => {
+        button.addEventListener('click', () => showSection(button.dataset.next));
+      });
+
+      giftButton.addEventListener('click', () => {
+        giftContent.classList.toggle('terbuka');
+        if (giftContent.classList.contains('terbuka')) {
+          // Efek pop dibuat dengan Web Audio API, jadi tidak membutuhkan file lokal/URL tambahan.
+          try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+              const context = new AudioContext();
+              const oscillator = context.createOscillator();
+              const gain = context.createGain();
+              oscillator.type = 'sine';
+              oscillator.frequency.setValueAtTime(620, context.currentTime);
+              oscillator.frequency.exponentialRampToValueAtTime(220, context.currentTime + 0.12);
+              gain.gain.setValueAtTime(0.22, context.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 0.14);
+              oscillator.connect(gain);
+              gain.connect(context.destination);
+              oscillator.start();
+              oscillator.stop(context.currentTime + 0.14);
+              oscillator.onended = () => context.close();
+            }
+          } catch (error) {
+            console.warn('Efek suara tidak tersedia:', error);
+          }
+        }
+      });
+
+      repeatButton.addEventListener('click', () => {
+        showSection('s1');
+        giftContent.classList.remove('terbuka');
+        nameInput.value = '';
+        pauseMusic();
+      });
+    });
+  </script>
+</body>
+</html>
